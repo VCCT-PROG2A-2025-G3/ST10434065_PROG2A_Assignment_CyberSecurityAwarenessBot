@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * ST10434065 Seth Oliver
+ * GROUP 3
+ * PROGRAMMING 2A 
+ * ASSIGNMENT PART 1
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +49,8 @@ namespace CyberSecurityAwarenessBot
                 }
             }
         }
+
+        //--------------------------------------------------------------------------------------------------------------//
 
         // Method to handle user responses
         private static void UserResponse(string input)
@@ -92,6 +101,8 @@ namespace CyberSecurityAwarenessBot
 
             Console.ResetColor(); // Reset the console color to default
         }
+
+        //--------------------------------------------------------------------------------------------------------------//
 
         // Method for typing out messages with a delay 
         private static void TypeOut(string message, int delay = 30)

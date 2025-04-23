@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * ST10434065 Seth Oliver
+ * GROUP 3
+ * PROGRAMMING 2A 
+ * ASSIGNMENT PART 1
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
@@ -17,11 +24,15 @@ namespace CyberSecurityAwarenessBot
             PlayAudio("Microsoft Windows XP Startup Sound.wav"); // The startup sound
         }
 
+        //--------------------------------------------------------------------------------------------------------------//
+
         // This method plays the welcome message.
         public static void PlayWelcomeMessage()
         {
             PlayAudio("Welcome Message.wav"); // The welcome message
         }
+
+        //--------------------------------------------------------------------------------------------------------------//
 
         // This method plays the specified audio file.
         private static void PlayAudio(string name)
