@@ -34,8 +34,6 @@ namespace CyberSecurityAwarenessBot
 
             Thread.Sleep(1000); // Wait for 1 seconds before starting the chatbot
             ChatBot.BotStart(); // Start the chatbot
-
-            Console.WriteLine("Testing CI for your Console App");
         }
     }
 }

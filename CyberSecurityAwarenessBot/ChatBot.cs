@@ -31,7 +31,7 @@ namespace CyberSecurityAwarenessBot
                 Console.ForegroundColor = ConsoleColor.Cyan; // Set the console color to cyan
                 // Prompt the user for input
                 Console.Write("You: ");
-                string input = Console.ReadLine()?.ToLower(); // Read user input and convert it to lowercase
+                string input = Console.ReadLine()?.ToLower().Trim(); // Read user input and convert it to lowercase
                 Console.ResetColor(); // Reset the console color to default
 
                 // Check if the input is empty or whitespace
@@ -58,7 +58,7 @@ namespace CyberSecurityAwarenessBot
             Console.ForegroundColor = ConsoleColor.Green; // Set the console color to green
 
             // Check for specific keywords in the user input and respond accordingly
-            if (input.Contains("hey") || input.Contains("hello") || input.Contains("hi"))
+            if (input.Contains("hey") || input.Contains("hello"))
             {
                 Console.WriteLine("Chatbot: ");
                 TypeOut("Hey! What cyber security questions do you have for me?"); // Print chatbot response
