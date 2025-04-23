@@ -20,8 +20,7 @@ namespace CyberSecurityAwarenessBot
         public static void BotStart()
         {
             Console.ForegroundColor = ConsoleColor.Green; // Set the console color to green
-            Console.WriteLine("\nWelcome to your CyberSecurity Awareness ChatBot!"); // Print welcome message
-            Console.WriteLine("Ask me anything related to cybersecurity, type 'exit' or 'quit' to exit the program. \n"); // Instructing the user about the bot's purpose
+            Console.WriteLine("\nAsk me anything related to cybersecurity, type 'exit' or 'quit' to exit the program. \n"); // Instructing the user about the bot's purpose
 
             bool running = true; // Variable to control the chatbot loop
 
@@ -114,5 +113,13 @@ namespace CyberSecurityAwarenessBot
             }
             Console.WriteLine(); // move to next line after message
         }
+
+        /* References
+         * -----------
+         * AI Declaration 
+         * --------------
+         * I used ChatGPT to help with debugging a issue with my code.
+         * Heres the link to my chat: https://chatgpt.com/c/68090d88-a2ec-800b-a915-ff68fbd59ed2
+         */
     }
 }

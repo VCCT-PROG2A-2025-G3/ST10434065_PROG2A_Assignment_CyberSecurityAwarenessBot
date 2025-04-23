@@ -22,20 +22,24 @@ namespace CyberSecurityAwarenessBot
         {
             string[] logo = new[] // The logo of the application
             {
-            "                      .--------.",
-            "                     / .------. \\",
-            "                    / /        \\ \\",
-            "                    | |        | |",
-            "                   _| |________| |_",
-            "                 .' |_|        |_| '.",
-            "                 '._____ ____ _____.'",
-            "                 |     .'____'.     |",
-            "                 '.__.'.'    '.'.__.'",
-            "                 '.__  |      |  __.'",
-            "                 |   '.'.____.'.'   |",
-            "                 '.____'.____.'____.'",
-            "                 '.________________.'",
-            " CyberSecurity Awareness Bot, Helping You Stay Safe"
+            "                    .--------.",
+            "                   / .------. \\",
+            "                  / /        \\ \\",
+            "                  | |        | |",
+            "                 _| |________| |_",
+            "               .' |_|        |_| '.",
+            "               '._____ ____ _____.'",
+            "               |     .'____'.     |",
+            "               '.__.'.'    '.'.__.'",
+            "               '.__  |      |  __.'",
+            "               |   '.'.____.'.'   |",
+            "               '.____'.____.'____.'",
+            "               '.________________.'",
+            "                                               ",
+            " ----------------------------------------------",
+            "    Welcome To The CyberSecurity Awareness Bot ",
+            "              Helping You Stay Safe            ",
+            " ----------------------------------------------",
             };
 
             // Define the colors to be used for each line of the logo
@@ -66,6 +70,14 @@ namespace CyberSecurityAwarenessBot
             Console.WriteLine(message);
             Console.ResetColor();
         }
+
+        /* References
+         * -----------
+         * AI Declaration
+         * --------------
+         * I used ChatGPT to help improve the logo display.
+         * Heres a link to my chat: https://chatgpt.com/c/68090ef2-676c-800b-98bc-76ddbcfe276b
+         */
     }
 }
 
