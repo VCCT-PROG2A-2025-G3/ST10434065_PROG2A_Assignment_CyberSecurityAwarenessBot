@@ -70,14 +70,6 @@ namespace CyberSecurityAwarenessBot
             Console.WriteLine(message);
             Console.ResetColor();
         }
-
-        /* References
-         * -----------
-         * AI Declaration
-         * --------------
-         * I used ChatGPT to help improve the logo display.
-         * Heres a link to my chat: https://chatgpt.com/c/68090ef2-676c-800b-98bc-76ddbcfe276b
-         */
     }
 }
 
