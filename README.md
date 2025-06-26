@@ -56,7 +56,6 @@
 ##  GUI Features
 
 - Custom **startup sound** and **welcome message**
-- Stylish **ASCII logo** on launch
 - **Chat-style interface** (You ↔ Bot)
 - List box displaying tasks with reminders
 - Buttons to:
