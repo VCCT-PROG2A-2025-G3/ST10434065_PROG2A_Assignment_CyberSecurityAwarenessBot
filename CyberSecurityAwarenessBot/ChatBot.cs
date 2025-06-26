@@ -21,6 +21,8 @@ namespace CyberSecurityAwarenessBot
         private static Dictionary<string, DateTime> topicFollowUpMemory = new Dictionary<string, DateTime>(); // Dictionary to store the last follow-up time for each topic
         private static TimeSpan followUpCooldown = TimeSpan.FromMinutes(1); // Cooldown period for follow-up questions
 
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+        #region Bot Start
         // Main method to start the chatbot.
         public static void BotStart()
         {
@@ -56,11 +58,21 @@ namespace CyberSecurityAwarenessBot
                 }
             }
         }
-
-        //--------------------------------------------------------------------------------------------------------------//
+        #endregion
+    //--------------------------------------------------------------------------------------------------------------//
+        #region Process Input
         // Method to handle user responses
         private static void ProcessInput(string input)
         {
+            // Check if the input contains any known topics or keywords
+            foreach (var key in ResponseClass.TopicResponses.Keys)
+            {
+                if (input.Contains(key))
+                {
+                    lastTopic = key; // Update the last topic if a known topic is found
+                    break;
+                }
+            }
             if (DetectSentiment(input)) return; // Check if the input contains any sentiment-related keywords
 
             string matchedTopic = null; // Variable to store the matched topic
@@ -136,8 +148,9 @@ namespace CyberSecurityAwarenessBot
                 PrintRandom(ResponseClass.UnknownInputResponses);
             }
         }
-
-        //--------------------------------------------------------------------------------------------------------------//
+        #endregion
+    //--------------------------------------------------------------------------------------------------------------//
+        #region Print Random Topic Response
         // Method to print a random response based on the topic
         private static void PrintRandomTopicResponse(string topic)
         {
@@ -148,8 +161,9 @@ namespace CyberSecurityAwarenessBot
             TypeOut($"Chatbot: {response}"); // Print the response
             Console.ResetColor(); // Reset console text color
         }
-
-        //--------------------------------------------------------------------------------------------------------------//
+        #endregion
+    //--------------------------------------------------------------------------------------------------------------//
+        #region Print Random
         // Method to print a random response from the unknown input responses
         private static void PrintRandom(List<string> responses)
         {
@@ -159,8 +173,9 @@ namespace CyberSecurityAwarenessBot
             TypeOut($"Chatbot: {response}"); // Print the response
             Console.ResetColor(); // Reset console text color
         }
-
+        #endregion
         //--------------------------------------------------------------------------------------------------------------//
+        #region Detect Sentiment
         // Method to detect the sentiment of the user's input
         private static bool DetectSentiment(string input)
         {
@@ -188,8 +203,9 @@ namespace CyberSecurityAwarenessBot
             // If no sentiment is detected, return false
             return false;
         }
-
+        #endregion
         //--------------------------------------------------------------------------------------------------------------//
+        #region Type Out
         // Method for typing out messages with a delay 
         private static void TypeOut(string message, int delay = 30)
         {
@@ -200,7 +216,7 @@ namespace CyberSecurityAwarenessBot
             }
             Console.WriteLine(); // move to next line after message
         }
-
+        #endregion
         //--------------------------------------------------------------------------------------------------------------//
     }
 }
