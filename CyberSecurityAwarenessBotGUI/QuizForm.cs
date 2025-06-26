@@ -29,6 +29,7 @@ namespace CyberSecurityAwarenessBotGUI
             if (currentQuestionIndex >= quizQuestions.Count)
             {
                 ShowFinalScore();
+                MainForm.Instance?.chatBotWrapper?.LogActivity($"Quiz completed with a score of {score}/{quizQuestions.Count}");
                 return;
             }
 

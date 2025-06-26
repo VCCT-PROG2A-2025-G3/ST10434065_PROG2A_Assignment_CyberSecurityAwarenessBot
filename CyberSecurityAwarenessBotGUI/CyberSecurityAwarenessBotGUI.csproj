@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioClass.cs" />
-    <Compile Include="ChatBot.cs" />
     <Compile Include="ChatBotWinFormsWrapper.cs" />
     <Compile Include="QuizForm.cs">
       <SubType>Form</SubType>

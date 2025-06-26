@@ -23,8 +23,10 @@ namespace CyberSecurityAwarenessBotGUI
     {
         #region Fields
         public static MainForm Instance; // Static reference to the form
-        private ChatBotWinFormsWrapper chatBotWrapper; // Keep a consistent ChatBot session
+        public ChatBotWinFormsWrapper chatBotWrapper; // Keep a consistent ChatBot session
         private TaskManager taskManager = new TaskManager(); // Task manager to handle tasks
+        public static List<TaskItem> Tasks { get { return Instance?.taskManager.GetTasks(); } }
+
         #endregion
         //--------------------------------------------------------------------------------------------------------------//
         #region MainForm Constructor
@@ -35,8 +37,17 @@ namespace CyberSecurityAwarenessBotGUI
             System.Threading.Thread.Sleep(500); // Wait for 0.5 seconds before playing the welcome message
             AudioClass.PlayWelcomeMessage();
             InitializeComponent(); // Initialize the form components
+            txtChatDisplay.AppendText("Bot: Hello there! What's your name?\n\n");
             chatBotWrapper = new ChatBotWinFormsWrapper(); // Initialize the chatbot logic
             Instance = this; // Set the static instance to this form
+        }
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Append User Message
+        // Method to append a bot message to the chat display
+        public void AppendBotMessage(string message)
+        {
+            txtChatDisplay.AppendText("Bot: " + message + "\n\n");
         }
         #endregion
         //--------------------------------------------------------------------------------------------------------------//
@@ -102,6 +113,7 @@ namespace CyberSecurityAwarenessBotGUI
             if (index >= 0) // If a task is selected
             {
                 taskManager.MarkTaskComplete(index); // Mark the task as complete
+                chatBotWrapper?.LogActivity($"Task marked complete: '{MainForm.Tasks[index].Title}'");
                 UpdateTaskList(); // Update the task list display
             }
         }
@@ -134,7 +146,9 @@ namespace CyberSecurityAwarenessBotGUI
 
         }
         #endregion
-
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Task List Measure Item
+        // This method is used to measure the height of each item in the task list
         private void lstTasks_MeasureItem(object sender, MeasureItemEventArgs e)
         {
             if (e.Index < 0) return;
@@ -145,7 +159,10 @@ namespace CyberSecurityAwarenessBotGUI
             SizeF size = e.Graphics.MeasureString(text, font, lstTasks.Width);
             e.ItemHeight = (int)size.Height + 10;
         }
-
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Task List Draw Item
+        // This method is used to draw each item in the task list
         private void lstTasks_DrawItem(object sender, DrawItemEventArgs e)
         {
             if (e.Index < 0) return;
@@ -158,12 +175,17 @@ namespace CyberSecurityAwarenessBotGUI
             }
             e.DrawFocusRectangle();
         }
-
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Button Start Quiz Click
+        // This method is called when the user clicks the "Start Quiz" button
         private void btnStartQuiz_Click(object sender, EventArgs e)
         {
             QuizManager.Score = 0; // Reset the score before starting a new quiz
+            chatBotWrapper?.LogActivity("Quiz started.");
             QuizForm quizForm = new QuizForm(); // Create a new instance of the QuizForm
             quizForm.ShowDialog(); // Show the quiz form as a modal dialog
         }
+        #endregion
     }
 }
