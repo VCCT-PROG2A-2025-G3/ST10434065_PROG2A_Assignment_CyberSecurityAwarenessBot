@@ -85,7 +85,7 @@ namespace CyberSecurityAwarenessBotGUI
                         DateTime.Now - topicFollowUpMemory[topic] > followUpCooldown) // Check if follow-up is allowed
                     {
                         topicFollowUpMemory[topic] = DateTime.Now; // Update follow-up memory with current time
-                        response += "\nWould you like to learn more?"; // Ask if the user wants to learn more about the topic
+                        response += "\nLet me know if i should explain or elaborate more on this topic."; // Ask if the user wants to learn more about the topic
                     }
 
                     return response; // Return the response for the topic
@@ -123,7 +123,7 @@ namespace CyberSecurityAwarenessBotGUI
             if (input.Contains("activity log") || input.Contains("what have i done") || input.Contains("show log"))
             {
                 var recentLogs = activityLog.Skip(Math.Max(0, activityLog.Count - 10)); // Get the last 10 logs
-                return "Here’s a summary of recent actions:\n" + string.Join("\n", recentLogs) + "\nType 'Show more' to view the last 10 logs.\n";
+                return "Here’s a summary of recent actions:\n" + string.Join("\n", recentLogs);
             }
 
             // Handle enabling 2FA request
@@ -154,38 +154,61 @@ namespace CyberSecurityAwarenessBotGUI
         private bool DetectSentiment(string input, out string response)
         {
             response = null; // Initialize response to null
+            input = input.ToLower(); // Normalize input
 
-            // Check for worried and similar sentiments
-            if (input.Contains("worried") || input.Contains("scared") || input.Contains("nervous"))
+            // Sentiment keyword lists
+            var worriedKeywords = new List<string> { "worried", "scared", "nervous", "anxious", "afraid", "terrified", "concerned" }; // Keywords indicating worry
+            var curiousKeywords = new List<string> { "curious", "wondering", "interested", "want to learn", "keen to know", "can you teach", "can you explain" }; // Keywords indicating curiosity
+            var frustratedKeywords = new List<string> { "frustrated", "confused", "stuck", "lost", "annoyed", "irritated", "can't figure it out" }; // Keywords indicating frustration
+            var happyKeywords = new List<string> { "happy", "excited", "glad", "awesome", "great", "fantastic", "good vibes" }; // Keywords indicating happiness
+            var greetingsKeywords = new List<string> { "hello", "hi", "hey", "how are you", "what’s up" }; // Keywords indicating greetings
+
+            string topic = !string.IsNullOrEmpty(lastTopic) ? lastTopic : ""; // Get the last topic discussed, if any
+
+            // Detect 'worried' sentiment
+            if (worriedKeywords.Any(word => input.Contains(word)))
             {
-                string topic = !string.IsNullOrEmpty(lastTopic) ? lastTopic : ""; // Get last topic if available
-                response = $"It's okay to feel that way, {userName}."; // Acknowledge the user's sentiment
-                if (!string.IsNullOrEmpty(topic)) // If there is a last topic discussed
-                    response += "\n" + GetRandomResponseForTopic(topic); // Get a random response for the last topic
-                return true; // Indicate that sentiment was detected
+                response = $"It's okay to feel that way, {userName}. You're not alone.";
+                if (!string.IsNullOrEmpty(topic))
+                    response += "\n" + GetRandomResponseForTopic(topic);
+                return true;
             }
 
-            // Check for curious sentiment
-            if (input.Contains("curious"))
+            // Detect 'curious' sentiment
+            if (curiousKeywords.Any(word => input.Contains(word)))
             {
-                string topic = !string.IsNullOrEmpty(lastTopic) ? lastTopic : ""; // Get last topic if available
-                response = $"I love your curiosity {userName}! Let's dive into it."; // Acknowledge curiosity
-                if (!string.IsNullOrEmpty(topic)) // If there is a last topic discussed
-                    response += "\n" + GetRandomResponseForTopic(topic); // Get a random response for the last topic
-                return true; // Indicate that sentiment was detected
+                response = $"I love your curiosity, {userName}! Let’s dive deeper into it.";
+                if (!string.IsNullOrEmpty(topic))
+                    response += "\n" + GetRandomResponseForTopic(topic);
+                return true;
             }
 
-            // Check for frustrated or confused sentiments
-            if (input.Contains("frustrated") || input.Contains("confused"))
+            // Detect 'frustrated' sentiment
+            if (frustratedKeywords.Any(word => input.Contains(word)))
             {
-                string topic = !string.IsNullOrEmpty(lastTopic) ? lastTopic : ""; // Get last topic if available
-                response = $"Don’t worry. I’m here to help."; // Acknowledge frustration or confusion
-                if (!string.IsNullOrEmpty(topic)) // If there is a last topic discussed
-                    response += "\n" + GetRandomResponseForTopic(topic); // Get a random response for the last topic
-                return true; // Indicate that sentiment was detected
+                response = $"Don't worry {userName}, I'm here to help you figure it out.";
+                if (!string.IsNullOrEmpty(topic))
+                    response += "\n" + GetRandomResponseForTopic(topic);
+                return true;
             }
-            // If no sentiment was detected, return false
-            return false; 
+
+            // Detect 'happy' sentiment
+            if (happyKeywords.Any(word => input.Contains(word)))
+            {
+                response = $"That's wonderful to hear, {userName}! 😊 Let's keep that good energy going.";
+                if (!string.IsNullOrEmpty(topic))
+                    response += "\nWant to explore more about this topic?";
+                return true;
+            }
+
+            // Detect greeting
+            if (greetingsKeywords.Any(word => input.Contains(word)))
+            {
+                response = $"Hey there, {userName}! I'm always here if you want to learn or ask something.";
+                return true;
+            }
+
+            return false; // No sentiment detected
         }
         #endregion
         //--------------------------------------------------------------------------------------------------------------//
