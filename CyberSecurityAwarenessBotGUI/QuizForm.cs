@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * ST10434065 Seth Oliver
+ * GROUP 3
+ * PROGRAMMING 2A 
+ * ASSIGNMENT POE 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,31 +17,40 @@ using System.Windows.Forms;
 
 namespace CyberSecurityAwarenessBotGUI
 {
+    // This class represents the quiz form where users can answer questions and see their scores.
     public partial class QuizForm: Form
     {
+        #region Fields
+        // Fields to hold the quiz questions, current question index, and score
         private List<QuizQuestion> quizQuestions;
         private int currentQuestionIndex = 0;
         private int score = 0;
-        
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Quiz Form Constructor
+        // Constructor for the QuizForm
         public QuizForm()
         {
-            InitializeComponent();
+            InitializeComponent(); // Initialize the form components
             quizQuestions = QuizManager.GetRandomQuestions(); // Load the quiz questions from the QuizManager
-            LoadQuestion();
+            LoadQuestion(); // Load the first question
         }
-
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Load Question
+        // Method to load the current question and its options into the form
         private void LoadQuestion()
         {
 
-            if (currentQuestionIndex >= quizQuestions.Count)
+            if (currentQuestionIndex >= quizQuestions.Count) // Check if all questions have been answered
             {
-                ShowFinalScore();
-                MainForm.Instance?.chatBotWrapper?.LogActivity($"Quiz completed with a score of {score}/{quizQuestions.Count}");
-                return;
+                ShowFinalScore(); // Show the final score and close the quiz form
+                MainForm.Instance?.chatBotWrapper?.LogActivity($"Quiz completed with a score of {score}/{quizQuestions.Count}"); // Log the quiz completion activity in the chatbot wrapper
+                return; 
             }
 
-            var question = quizQuestions[currentQuestionIndex];
-            lblQuestion.Text = question.Question;
+            var question = quizQuestions[currentQuestionIndex]; // Get the current question from the list
+            lblQuestion.Text = question.Question; // Set the question text in the label
 
             // Hide all radio buttons first
             rdoOption1.Visible = false;
@@ -72,58 +88,64 @@ namespace CyberSecurityAwarenessBotGUI
                 }
             }
 
-            lblExplanation.Visible = false;
+            lblExplanation.Visible = false; // Hide the explanation label initially
         }
-
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblExplanation_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Radio Button Checked Changed
+        // This method is called when the radio button selection changes
+        private void radioButton1_CheckedChanged(object sender, EventArgs e) { }
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Explanation Label Click
+        // This method is called when the explanation label is clicked
+        private void lblExplanation_Click(object sender, EventArgs e) { }
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Button Next Click
+        // This method is called when the "Next" button is clicked
         private async void btnNext_Click(object sender, EventArgs e)
         {
-            var question = quizQuestions[currentQuestionIndex];
+            var question = quizQuestions[currentQuestionIndex]; // Get the current question
 
-            int selectedIndex = -1;
-            if (rdoOption1.Checked) selectedIndex = 0;
-            else if (rdoOption2.Checked) selectedIndex = 1;
-            else if (rdoOption3.Checked) selectedIndex = 2;
-            else if (rdoOption4.Checked) selectedIndex = 3;
+            int selectedIndex = -1; // Determine which radio button is selected
+            if (rdoOption1.Checked) selectedIndex = 0; // Check if Option 1 is selected
+            else if (rdoOption2.Checked) selectedIndex = 1; // Check if Option 2 is selected
+            else if (rdoOption3.Checked) selectedIndex = 2; // Check if Option 3 is selected
+            else if (rdoOption4.Checked) selectedIndex = 3; // Check if Option 4 is selected
 
-            if (selectedIndex == -1)
+            if (selectedIndex == -1) // If no option is selected
             {
-                MessageBox.Show("Please select an answer before continuing.");
+                MessageBox.Show("Please select an answer before continuing."); // Show a message to the user
                 return;
             }
 
-            if (selectedIndex == question.CorrectIndex)
+            if (selectedIndex == question.CorrectIndex) // Check if the selected answer is correct
             {
-                score++;
-                lblExplanation.Text = "Correct! \n\n" + question.Explanation;
+                score++; // Increment the score
+                lblExplanation.Text = "Correct! \n\n" + question.Explanation; // Show the explanation for the correct answer
             }
-            else 
+            else // If the answer is incorrect
             {
-                lblExplanation.Text = $"Incorrect \nCorrect Answer: {question.Options[question.CorrectIndex]}\n\n{question.Explanation}";
+                lblExplanation.Text = $"Incorrect \nCorrect Answer: {question.Options[question.CorrectIndex]}\n\n{question.Explanation}"; // Show the explanation for the incorrect answer
             }
-            lblExplanation.Visible = true;
+            lblExplanation.Visible = true; // Make the explanation label visible
 
-            currentQuestionIndex++;
-                
+            currentQuestionIndex++; // Move to the next question
+
             // Small delay before loading the next question
             await Task.Delay(5000);
             LoadQuestion();
         }
-
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Button Exit Click
+        // This method is called to show the final score and close the quiz form
         private void ShowFinalScore()
         {
             MessageBox.Show($"Quiz complete!\nYour score: {score} out of {quizQuestions.Count}", "Quiz Finished"); // Show final score in a message box
             this.Close(); // Close quiz form if you want
         }
+        #endregion
     }
 }

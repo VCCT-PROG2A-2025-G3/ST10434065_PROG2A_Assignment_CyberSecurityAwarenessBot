@@ -37,6 +37,7 @@ namespace CyberSecurityAwarenessBotGUI
         #endregion
         //--------------------------------------------------------------------------------------------------------------//
         #region TaskItem Constructor
+        // Constructor to initialize a task item with a title, optional description, and optional reminder date and time.
         public TaskItem(string title, string description = "", DateTime? reminder = null)
         {
             Title = title;

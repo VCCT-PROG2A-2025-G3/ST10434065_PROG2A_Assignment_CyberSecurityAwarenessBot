@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * ST10434065 Seth Oliver
+ * GROUP 3
+ * PROGRAMMING 2A 
+ * ASSIGNMENT POE 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +13,11 @@ using System.Threading.Tasks;
 
 namespace CyberSecurityAwarenessBotGUI
 {
+    // This class represents a quiz question with its options, correct answer index, and explanation.
     class QuizManager
     {
+        #region Questions List
+        // A static list of quiz questions, each with a question, options, correct answer index, and explanation
         public static List<QuizQuestion> Questions = new List<QuizQuestion>
         {
             new QuizQuestion
@@ -86,12 +96,16 @@ namespace CyberSecurityAwarenessBotGUI
             Explanation = "No! Links can lead to malware or phishing websites."
             }
         };
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
+        #region Get Random Questions 
         // Method to get a random selection of quiz questions
         public static List<QuizQuestion> GetRandomQuestions(int count = 5)
         {
             return Questions.OrderBy(q => Guid.NewGuid()).Take(count).ToList(); // Randomly selects 'count' questions from the list
         }
-
+        #endregion
+        //--------------------------------------------------------------------------------------------------------------//
         // Static variable to keep track of the user's score
         public static int Score = 0;
     }

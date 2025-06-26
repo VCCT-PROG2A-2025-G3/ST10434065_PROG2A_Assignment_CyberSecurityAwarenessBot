@@ -25,7 +25,7 @@ namespace CyberSecurityAwarenessBotGUI
         // Constructor to initialize the task manager
         public void AddTask(string description)
         {
-            tasks.Add(new TaskItem(description));
+            tasks.Add(new TaskItem(description)); // Add a new task with the given description to the list
         }
         #endregion
         //--------------------------------------------------------------------------------------------------------------//
@@ -33,7 +33,7 @@ namespace CyberSecurityAwarenessBotGUI
         // This method returns the list of tasks
         public List<TaskItem> GetTasks()
         {
-            return tasks;
+            return tasks; // Return the list of tasks
         }
         #endregion
         //--------------------------------------------------------------------------------------------------------------//
@@ -41,9 +41,9 @@ namespace CyberSecurityAwarenessBotGUI
         // This method marks a task as complete based on its index
         public void MarkTaskComplete(int index)
         {
-            if (index >= 0 && index < tasks.Count)
+            if (index >= 0 && index < tasks.Count) // Check if the index is valid
             {
-                tasks[index].IsCompleted = true;
+                tasks[index].IsCompleted = true; // Set the task's completion status to true
             }
         }
         #endregion
@@ -52,9 +52,9 @@ namespace CyberSecurityAwarenessBotGUI
         // This method removes a task from the list based on its index
         public void RemoveTask(int index)
         {
-            if (index >= 0 && index < tasks.Count)
-            {
-                tasks.RemoveAt(index);
+            if (index >= 0 && index < tasks.Count) // Check if the index is valid
+            { 
+                tasks.RemoveAt(index); // Remove the task at the specified index
             }
         }
         #endregion
@@ -63,7 +63,7 @@ namespace CyberSecurityAwarenessBotGUI
         // This method clears all tasks from the list
         public void ClearAll()
         {
-            tasks.Clear();
+            tasks.Clear(); // Clear the list of tasks
         }
         #endregion
     }

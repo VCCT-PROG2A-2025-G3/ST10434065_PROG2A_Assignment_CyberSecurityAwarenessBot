@@ -22,9 +22,9 @@ namespace CyberSecurityAwarenessBotGUI
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.EnableVisualStyles(); // Enable visual styles for the application
+            Application.SetCompatibleTextRenderingDefault(false); // Set the default text rendering to be compatible with the current system
+            Application.Run(new MainForm()); // Start the application with the MainForm
         }
     }
 }
