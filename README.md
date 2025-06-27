@@ -4,6 +4,12 @@
 
 ---
 
+## ST10434065 Prog POE Video (YT Link)
+### YouTube Link:
+https://youtu.be/ruvrje6ZU24
+
+---
+
 ## Overview
 
 **CyberSecurity Awareness Bot** is an interactive C# **Windows Forms Application** designed to help users learn about cybersecurity through a smart, conversational chatbot. The application supports natural language processing (NLP)-style inputs, quiz-based learning, task and reminder management, and sentiment-aware responses. It demonstrates modular class design, collections, delegates, conditional logic, and rich GUI functionality.
