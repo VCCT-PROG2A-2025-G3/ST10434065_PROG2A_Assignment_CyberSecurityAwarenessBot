@@ -57,20 +57,6 @@ namespace CyberSecurityAwarenessBotGUI
                 return $"Nice to meet you, {userName}!"; // Acknowledge the user's name
             }
 
-            // Sentiment detection
-            if (DetectSentiment(input, out string sentimentResponse))
-                return sentimentResponse;
-
-            // Handle task creation and reminders (complex flow)
-            string taskResponse = HandleTaskCreationFlow(input);
-            if (!string.IsNullOrEmpty(taskResponse)) // If in task creation flow, return the response
-                return taskResponse;
-
-            // Handle quick reminder input patterns
-            string quickReminderResponse = HandleQuickReminderInputs(input);
-            if (!string.IsNullOrEmpty(quickReminderResponse)) // If quick reminder input was detected, return the response
-                return quickReminderResponse;
-
             // Handle known topic requests
             foreach (var topic in ResponseClass.TopicResponses.Keys)
             {
@@ -130,6 +116,20 @@ namespace CyberSecurityAwarenessBotGUI
             string[] twoFaKeywords = { "enable 2fa", "turn on 2fa", "2fa settings" };
             if (twoFaKeywords.Any(keyword => input.Contains(keyword))) // Check if input contains any 2FA keywords
                 return "Two-Factor Authentication (2FA) helps protect your accounts. You can enable it via your account settings.";
+            
+            // Sentiment detection
+            if (DetectSentiment(input, out string sentimentResponse))
+                return sentimentResponse;
+
+            // Handle task creation and reminders (complex flow)
+            string taskResponse = HandleTaskCreationFlow(input);
+            if (!string.IsNullOrEmpty(taskResponse)) // If in task creation flow, return the response
+                return taskResponse;
+
+            // Handle quick reminder input patterns
+            string quickReminderResponse = HandleQuickReminderInputs(input);
+            if (!string.IsNullOrEmpty(quickReminderResponse)) // If quick reminder input was detected, return the response
+                return quickReminderResponse;
 
             // Default unknown input response
             return GetRandomUnknownResponse();
@@ -157,11 +157,11 @@ namespace CyberSecurityAwarenessBotGUI
             input = input.ToLower(); // Normalize input
 
             // Sentiment keyword lists
-            var worriedKeywords = new List<string> { "worried", "scared", "nervous", "anxious", "afraid", "terrified", "concerned" }; // Keywords indicating worry
-            var curiousKeywords = new List<string> { "curious", "wondering", "interested", "want to learn", "keen to know", "can you teach", "can you explain" }; // Keywords indicating curiosity
+            var worriedKeywords = new List<string> { "worried","stress","stressing","stressed", "scared", "nervous", "anxious", "afraid", "terrified", "concerned" }; // Keywords indicating worry
+            var curiousKeywords = new List<string> { "curious", "wondering", "interested", "want to learn", "keen to know" }; // Keywords indicating curiosity
             var frustratedKeywords = new List<string> { "frustrated", "confused", "stuck", "lost", "annoyed", "irritated", "can't figure it out" }; // Keywords indicating frustration
             var happyKeywords = new List<string> { "happy", "excited", "glad", "awesome", "great", "fantastic", "good vibes" }; // Keywords indicating happiness
-            var greetingsKeywords = new List<string> { "hello", "hi", "hey", "how are you", "what’s up" }; // Keywords indicating greetings
+            var greetingsKeywords = new List<string> { "hello", "how are you", "what’s up" }; // Keywords indicating greetings
 
             string topic = !string.IsNullOrEmpty(lastTopic) ? lastTopic : ""; // Get the last topic discussed, if any
 
